@@ -27,7 +27,7 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date + '%Y%m%d')"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           persist-credentials: false
           fetch-depth: 0
@@ -36,7 +36,7 @@ jobs:
 
       ##### SOURCE CODE & PYTHON #####
       - name: Fetch game source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: NumberSir/vrelnir_localization
           path: ${{ github.workspace }}/vrelnir_localization
@@ -63,7 +63,7 @@ jobs:
 
       ##### MOD LOADER & NODEJS #####
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: 18.x
 
@@ -71,13 +71,13 @@ jobs:
         run: corepack enable
 
       - name: ModLoader
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: Lyoko-Jeremie/sugarcube-2-ModLoader
           path: ModLoader
           ref: master
           submodules: recursive
-          
+
       - name: Update submods
         working-directory: ${{ github.workspace }}/ModLoader
         run: git submodule update --init --recursive
@@ -151,12 +151,12 @@ jobs:
 #          node "encryptTool.js" "${{ github.workspace }}/ModLoader/dist-insertTools/packModZip.js" "cryptModConfig.json" "bootTemplate.json" "${{ github.workspace }}/ModLoader/mod/i18n/ModI18N.mod.zip"
 
       - name: Upload i18n Mod
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: I18nMod-${{ github.sha }}
           path: ${{ github.workspace }}/ModLoader/mod/i18n/ModI18N.mod.zip
 #          path: ${{ github.workspace }}/ModLoader/mod/SimpleCryptWrapperMod/out/ModI18N.mod.zip
-      
+
       - name: Rename i18n Mod (Nightly)
         if: ${{ github.event_name == 'schedule' }}
         run: |
