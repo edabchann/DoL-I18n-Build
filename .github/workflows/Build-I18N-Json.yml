@@ -38,7 +38,7 @@ jobs:
       - name: Fetch game source code
         uses: actions/checkout@v6
         with:
-          repository: edabchann/vrelnir_localization
+          repository: NumberSir/vrelnir_localization
           path: ${{ github.workspace }}/vrelnir_localization
           ref: main
           submodules: recursive
